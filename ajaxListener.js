@@ -1,6 +1,6 @@
 // var urls=[];
 var fr=[],haveAu=false,haveVi=false;
-var title=document.getElementsByTagName('title')[0].innerText.slice(0,15);
+var title=document.getElementsByTagName('title')[0].innerText.slice(0,document.getElementsByTagName('title')[0].innerText.indexOf('哔')-1);
 // function changeAjax(){
 // 	tmp1=XMLHttpRequest.prototype.send;
 // 	function tmpSend (data) {
