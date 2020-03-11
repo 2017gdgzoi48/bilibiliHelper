@@ -31,10 +31,12 @@ var title=document.getElementsByTagName('title')[0].innerText.slice(0,document.g
 // run it in fake.js
 async function download(){
 	var list=urls;
-	if(list.filter(ele=>{return /\.flv/g.exec(ele)!==null}).length==1){
+	if(list.filter(ele=>{return /\.flv/g.exec(ele)!==null}).length){
 		var url=list.filter(ele=>{return /\.flv/g.exec(ele)!==null});
+		list=new Set(url);
+		list=list.toJSON();
 		var tag = document.createElement('a');
-		tag.href = url;
+		tag.href = list[0];
 		tag.download=title+'.flv';
 		tag.click();
 		return ;
