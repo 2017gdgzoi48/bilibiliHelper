@@ -1,5 +1,5 @@
 // var urls=[];
-var fr=[],haveAu=false,haveVi=false;
+var haveAu=false,haveVi=false;
 var title=document.getElementsByTagName('title')[0].innerText.slice(0,document.getElementsByTagName('title')[0].innerText.indexOf('哔')-1);
 // function changeAjax(){
 // 	tmp1=XMLHttpRequest.prototype.send;
@@ -31,43 +31,50 @@ var title=document.getElementsByTagName('title')[0].innerText.slice(0,document.g
 // run it in fake.js
 async function download(){
 	var list=urls;
+	var data=[];
 	if(list.filter(ele=>{return /\.flv/g.exec(ele)!==null}).length){
-		var url=list.filter(ele=>{return /\.flv/g.exec(ele)!==null});
-		list=new Set(url);
-		list=list.toJSON();
+		list=list.filter(ele=>{return /^[^?]+\.flv/g.exec(ele)!==null});
+		list=list.sort();
+		list=new Set(list);
+		var nlist=[];
+		list.forEach(ele=>nlist.push(ele));
+		list=nlist;
 		var tag = document.createElement('a');
-		tag.href = list[0];
-		tag.download=title+'.flv';
-		tag.click();
+		var xhr=new XMLHttpRequest();
+		xhr.open('GET',list[0]);
+		xhr.responseType='blob';
+		xhr.send();
+		xhr.onreadystatechange=function(){
+			if(xhr.readyState!=4)return;
+			var ur=window.URL.createObjectURL(xhr.response);
+			tag.href = ur;
+			tag.download=title+'.flv';
+			tag.click();
+			console.log('aa');
+		}
 		return ;
 	}
-	list=list.filter(ele=>{return /\.m4s/g.exec(ele)!==null});
+	list=list.filter(ele=>{return /^[^?]+\.m4s/g.exec(ele)!==null});
+	if(list==[])window.location.reload();
+	list=list.sort();
 	list=new Set(list);
-	list=list.toJSON();
+	var nlist=[];
+	list.forEach(ele=>nlist.push(ele));
+	list=nlist;
 	for(var i=0;i<list.length;i++){
-		var res,blo;
+		var res,ab;
 		res=await fetch(list[i]);
-		blo=await res.blob();
-		var ur=window.URL.createObjectURL(blo);
+		ab=await res.arrayBuffer();
+		var ur=window.URL.createObjectURL(new Blob([ab]));
 		var tag = document.createElement('a');
 		tag.href = ur;
-		fr.push(new FileReader());
-		fr[i].readAsArrayBuffer(blo);
-		fr[i].onload=function(event){
-			if(haveVi&&haveAu)return;
-			var tri;
-			if(new Uint8Array(event.target.result).toString().indexOf("34,109,111,111,118")!==-1){
-				tri=title+'.mp3';
-				haveAu=1;
-			}
-			else{
-				tri=title+'.mp4';
-				haveVi=1;
-			}
-			tag.download=tri;
-			tag.click();
-			window.URL.revokeObjectURL(ur);
-		}
+		data.push([ab.byteLength,tag]);
 	}
+	data=data.sort((a,b)=>a[0]-b[0]);
+	var t1=data[0][1];
+	var t2=data[data.length-1][1];
+	t1.download=title+'.mp3',t2.download=title+'.mp4';
+	t1.click();
+	t2.click();
 }
-setTimeout(download,10000);
+setTimeout(download,15000);
