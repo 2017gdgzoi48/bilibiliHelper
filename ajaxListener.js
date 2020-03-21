@@ -40,18 +40,12 @@ async function download(){
 		list.forEach(ele=>nlist.push(ele));
 		list=nlist;
 		var tag = document.createElement('a');
-		var xhr=new XMLHttpRequest();
-		xhr.open('GET',list[0]);
-		xhr.responseType='blob';
-		xhr.send();
-		xhr.onreadystatechange=function(){
-			if(xhr.readyState!=4)return;
-			var ur=window.URL.createObjectURL(xhr.response);
-			tag.href = ur;
-			tag.download=title+'.flv';
-			tag.click();
-			console.log('aa');
-		}
+		var blo=await fetch(list[0]);
+		var blo=await blo.blob();
+		var ur=window.URL.createObjectURL(blo);
+		tag.href = ur;
+		tag.download=title+'.flv';
+		tag.click();
 		return ;
 	}
 	list=list.filter(ele=>{return /^[^?]+\.m4s/g.exec(ele)!==null});
