@@ -1,6 +1,6 @@
 ### how to use it
 1. open the page which the video in it
-2. if the vedio if flv, go to step 4
+2. if the vedio is flv, go to step 4
 3. not flv, use the formatFactory to mix the audio and video
 4. finish!
 
