@@ -55,6 +55,12 @@ async function download(){
 	var nlist=[];
 	list.forEach(ele=>nlist.push(ele));
 	list=nlist;
+	function getId(str){
+		str=str.slice(0,str.indexOf('?'));
+		str=str.slice(str.lastIndexOf('/'));
+		str=str.slice(str.lastIndexOf('-')+1,-4);
+		return str;
+	}
 	for(var i=0;i<list.length;i++){
 		var res,ab;
 		res=await fetch(list[i]);
@@ -62,12 +68,12 @@ async function download(){
 		var ur=window.URL.createObjectURL(new Blob([ab]));
 		var tag = document.createElement('a');
 		tag.href = ur;
-		data.push([ab.byteLength,tag]);
+		data.push([getId(list[i]),tag]);
 	}
 	data=data.sort((a,b)=>a[0]-b[0]);
 	var t1=data[0][1];
 	var t2=data[data.length-1][1];
-	t1.download=title+'.mp3',t2.download=title+'.mp4';
+	t1.download=title+'.mp4',t2.download=title+'.mp3';
 	t1.click();
 	t2.click();
 }
