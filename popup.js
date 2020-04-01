@@ -10,7 +10,7 @@ document.onreadystatechange=()=>{
 				});
 				return;
 			}
-			tabs.forEach(tab=>{chrome.tabs.sendMessage(tab.id,{type:'stop',data:[]});});
+			tabs.forEach(tab=>{chrome.tabs.sendMessage(tab.id,{type:'start',data:[]});});
 		})
 	};
 	document.getElementById('stop').onclick=()=>{
