@@ -1,12 +1,18 @@
+# Bilibili Helper
+
+### before download
+1. download ffmpeg in this [link](https://ffmpeg.zeranoe.com/builds/ "link")
+2. add /bin path to the Environment variable-**PATH**
+
 ### how to use it
 1. open the page which the video in it
-2. if the vedio is flv, go to step 4
-3. not flv, use the formatFactory to mix the audio and video
-4. finish!
+2. press "start" button
+3. wait until the folder open
+4. run the cmd in the folder
 
 ### note
-* you may wait for about **10** seconds and it will start download
-* it just work in **www\.bilibili\.com** and can't download paid songs
+* you may wait for about **1.5** seconds and it will start download
+* it just work in **www\.bilibili\.com** and can't download paid videos
 * the filename shouldn't include '<','>','\','/',':','"','\*','?'
 
 ### statement

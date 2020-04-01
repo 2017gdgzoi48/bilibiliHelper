@@ -10,7 +10,7 @@
     {
       "matches": [
         "*://www.bilibili.com/video/*",
-        "https://www.bilibili.com/*/play/*"
+        "*://www.bilibili.com/*/play/*"
       ],
       "js": [
         "helper.js"
@@ -21,6 +21,7 @@
     "default_icon": {
       "16": "bilibili.png"
     },
+    "default_popup":"popup.html",
     "default_title": "bilibili助手"
   },
   "background": {
@@ -36,6 +37,12 @@
     "webRequest",
     "webRequestBlocking"
   ],
+  "externally_connectable":{
+    "matches":[
+        "*://www.bilibili.com/video/*",
+        "*://www.bilibili.com/*/play/*"
+      ]
+  },
   "web_accessible_resources": [
     "ajaxListener.js",
     "fake.js"

@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+  <style>
+    body{
+      width: 200px;
+    }
+    h3{
+      text-align: center;
+    }
+    li{
+      margin-right: 10px;
+    }
+    h4{
+      margin: 10px;
+    }
+    code{
+      color: red;
+      font-weight: bold;
+      font-size: 12px;
+      font-family: consola;
+    }
+    .op{
+      text-align: center;
+    }
+    button{
+      margin: 10px auto 10px auto;
+    }
+  </style>
+  <script src="popup.js"></script>
+</head>
+<body>
+  <h3>欢迎使用bilibiliHelper!</h3>
+  <span>您可以使用此插件下载B站上up主的视频！</span>
+  <div>
+    <h4>使用步骤：</h4>
+    <li>先下载<a href="https://ffmpeg.zeranoe.com/builds/" target="_blank">ffmpeg</a>,打开链接后按<code>download build</code>按钮</li>
+    <li>下载完毕后解压，将/bin路径添加至环境变量中</li>
+    <li>打开B站页面后，按下面的按钮</li>
+    <li>等待下载完毕后文件夹弹出</li>
+    <li>复制代码运行(不推荐)或直接运行本地cmd即可(推荐)</li>
+  </div>
+  <div>
+    <h4>注意事项：</h4>
+    <li>请保持网络畅通，不然可能会出现下载错误。</li>
+    <li>“停止”按钮按下后会立即停止而不是当前视频下载完后停止，可能会导致错误，请尽可能在下载完当前视频后再按停止。</li>
+    <li>停止后并不能再次开始，请三思而后按。</li>
+    <li>下载时间可能较长，请耐心(程序员朋友们可以看看network那条长长的进度条)。</li>
+  </div>
+  <div class="op">
+      <button id='start'>开始</button>
+      <button id='stop'>停止</button>
+  </div>
+</body>
+</html>
