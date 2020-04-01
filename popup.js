@@ -4,11 +4,13 @@ document.onreadystatechange=()=>{
 		chrome.tabs.query({url:filter},tabs=>{
 			if(tabs.length==0){
 				chrome.tabs.query({active:true},tabs=>{
+					tab=tabs[0];
 					var str='没有检测到合适页面，无法开始！';
 					chrome.tabs.executeScript(tab.id,{code:'alert("'+str+'")'});
 				});
 				return;
 			}
+			tabs.forEach(tab=>{chrome.tabs.sendMessage(tab.id,{type:'stop',data:[]});});
 		})
 	};
 	document.getElementById('stop').onclick=()=>{
