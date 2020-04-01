@@ -83,7 +83,7 @@ async function download(mut,idx){
 		sendData=[sendData];
 		isFlv=1;
 	}
-	else{
+	else if(list.filter(ele=>{return /^[^?]+\.m4s/g.exec(ele)!==null}).length){
 		list=list.filter(ele=>{return /^[^?]+\.m4s/g.exec(ele)!==null});
 		if(list==[])window.location.reload();
 		list=list.sort();
@@ -109,6 +109,9 @@ async function download(mut,idx){
 		}
 		tg1.download=title+pname+'.mp4',tg2.download=title+pname+'.mp3';
 		sendData=[tg1,tg2];
+	}else{
+		handle=setTimeout(download,10000,true,idx);
+		return;
 	}
 	chrome.runtime.sendMessage(extid,{type:'additem',data:[sendData,mut,isFlv]})
 	videoNames.push([sendData[0].download.slice(0,-4),isFlv]);
@@ -125,7 +128,7 @@ async function download(mut,idx){
 			var pat=`.ep-item:nth-child(${idx}),.list-box>li:nth-child(${idx})`;
 			var nxtEle=document.querySelector(pat);
 			urls=[];
-			handle=setTimeout(download,3000,true,idx);
+			handle=setTimeout(download,10000,true,idx);
 			nxtEle.click();
 		}
 	}else {
