@@ -1,4 +1,4 @@
-# Bilibili Helper
+# Bilibili Helper V2.0
 
 ### before download
 1. download ffmpeg in this [link](https://ffmpeg.zeranoe.com/builds/ "link")
