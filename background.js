@@ -18,19 +18,19 @@ chrome.runtime.onMessageExternal.addListener((msg)=>{
 			// alert(ele.download);
 			chrome.downloads.download({
 				url:ele.href,
-				filename: 'tmpVideo/'+ele.download
+				filename: 'tmpVideo'+msg.data[1]+'/'+ele.download
 			},id=>{localStorage.last=id;});
 		});
 	}else if(msg.type=='downcmd'){
 		var url=URL.createObjectURL(new Blob([msg.data[0]],{type:'plain/text'}));
 		chrome.downloads.download({
 			url:url,
-			filename: 'tmpVideo/donttouchme.txt'
+			filename: 'tmpVideo'+msg.data[1]+'/'+'donttouchme.txt'
 		});
 		url=URL.createObjectURL(new Blob(['\nchcp 65001\n\nfor /f "delims=" %%i in (donttouchme.txt) do %%i'],{type:'text/cmd'}));
 		chrome.downloads.download({
 			url:url,
-			filename: 'tmpVideo/runme.cmd'
+			filename: 'tmpVideo'+msg.data[1]+'/'+'runme.cmd'
 		});
 	}else{
 		setTimeout(()=>{

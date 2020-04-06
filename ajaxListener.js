@@ -1,4 +1,4 @@
-var extid=localStorage.extId,videoNames=[],max=0,handle=-1;
+var extid=localStorage.extId,videoNames=[],max=0,handle=-1,randid;
 var title=document.querySelector('.tit,.media-title').innerText;
 function getCommand(list,mut){
 	var cmd='\n';
@@ -15,8 +15,8 @@ function getCommand(list,mut){
 		});
 	}
 	cmd+='\ncd ..\nrmdir /s /q tmpVideo\n';
-	cmd+='\necho 完成啦！！\npause'
-	return cmd;
+	cmd+='\necho 完成啦！！\npause';
+	return cmd.replace(/tmpVideo/g,'tmpVideo'+randid);
 }
 function showCommand(cmd){
 	function createNode(type,css,val){
@@ -113,13 +113,13 @@ async function download(mut,idx){
 		handle=setTimeout(download,10000,true,idx);
 		return;
 	}
-	chrome.runtime.sendMessage(extid,{type:'additem',data:[sendData,mut,isFlv]})
+	chrome.runtime.sendMessage(extid,{type:'additem',data:[sendData,randid]})
 	videoNames.push([sendData[0].download.slice(0,-4),isFlv]);
 	if(mut){
 		var link=document.URL;
 		if(idx==max){
 			var cmd=getCommand(videoNames,mut)
-			chrome.runtime.sendMessage(extid,{type:'downcmd',data:[cmd]});
+			chrome.runtime.sendMessage(extid,{type:'downcmd',data:[cmd,randid]});
 			showCommand(cmd);
 			chrome.runtime.sendMessage(extid,{type:'finish',data:[]});
 			return;
@@ -134,11 +134,13 @@ async function download(mut,idx){
 	}else {
 		var cmd=getCommand(videoNames,mut);
 		showCommand(cmd);
-		chrome.runtime.sendMessage(extid,{type:'downcmd',data:[cmd]});
+		chrome.runtime.sendMessage(extid,{type:'downcmd',data:[cmd,randid]});
 		chrome.runtime.sendMessage(extid,{type:'finish',data:[]});
 	}
 }
-function start(){
+function start(rand){
+	alert('开始下载！');
+	randid=rand;
 	var mut=(document.querySelector('.cur-page,.ep-list-progress')!==null);
 	if(mut){
 		max=document.querySelector('.cur-page,.ep-list-progress').innerText;
@@ -147,6 +149,7 @@ function start(){
 	handle=setTimeout(download,1500,mut,-1);
 }
 function end(){
+	alert('停止下载！');
 	if(handle<0){
 		alert('下载尚未开始！');
 		return;
@@ -155,6 +158,6 @@ function end(){
 	var mut=(document.querySelector('.cur-page,.ep-list-progress')!==null);
 	var cmd=getCommand(videoNames,mut);
 	showCommand(cmd);
-	chrome.runtime.sendMessage(extid,{type:'downcmd',data:[cmd]});
+	chrome.runtime.sendMessage(extid,{type:'downcmd',data:[cmd,randid]});
 	chrome.runtime.sendMessage(extid,{type:'finish',data:[]});
 }

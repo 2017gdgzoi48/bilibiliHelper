@@ -10,11 +10,11 @@ document.onreadystatechange=()=>{
 				});
 				return;
 			}
-			tabs.forEach(tab=>{chrome.tabs.sendMessage(tab.id,{type:'start',data:[]});});
+			tabs.forEach(tab=>{chrome.tabs.sendMessage(tab.id,{type:'start',data:[Math.random()]});});
 		})
 	};
 	document.getElementById('stop').onclick=()=>{
-		chrome.tabs.query({url:filter},tabs=>{
+		chrome.tabs.query({url:filter,active:true},tabs=>{
 			if(tabs.length==0){
 				chrome.tabs.query({active:true},tabs=>{
 					tab=tabs[0];
