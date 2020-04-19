@@ -15,7 +15,7 @@ function getCommand(list,mut){
 		});
 	}
 	cmd+='\ncd ..\nrmdir /s /q tmpVideo\n';
-	cmd+='\necho 完成啦！！\npause';
+	cmd+='\nmsg * 完成啦！！\npause';
 	return cmd.replace(/tmpVideo/g,'tmpVideo'+randid);
 }
 function showCommand(cmd){
