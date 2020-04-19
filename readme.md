@@ -1,8 +1,8 @@
-# Bilibili Helper V2.0
+# Bilibili Helper V2.1
 
 ### before download
-1. download ffmpeg in this [link](https://ffmpeg.zeranoe.com/builds/ "link")
-2. add /bin path to the Environment variable-**PATH**
+1. download ffmpeg in this [link](https://ffmpeg.zeranoe.com/builds/ "link") or the link in the tooltip of chrome 
+2. add /bin path to the Environment variable-**PATH** (you don't need to do it if you download by the link in chrome, just follow the tooltips)
 
 ### how to use it
 1. open the page which the video in it
